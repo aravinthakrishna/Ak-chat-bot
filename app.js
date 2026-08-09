@@ -1,0 +1,285 @@
+// DSU-SET IT Assistant Engine (Fully Gemini-Driven)
+(function() {
+  let activeStudents = [];
+  let studentMap = {}; // register_no -> student
+  let debounceTimer = null;
+  let conversationHistory = []; // Multi-turn conversation memory
+
+  // DOM Elements
+  const exportCsvBtn = document.getElementById('export-csv-btn');
+  const messagesStream = document.getElementById('messages-stream');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+  const autocompleteBox = document.getElementById('autocomplete-box');
+  const suggestionChips = document.querySelectorAll('.suggestion-chip');
+
+  // Initialize App Directly into DSU-SET IT Assistant
+  document.addEventListener('DOMContentLoaded', () => {
+    initITAssistant();
+
+    if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportDatasetCSV);
+
+    sendBtn.addEventListener('click', handleSendMessage);
+
+    // Enter to send, Shift+Enter for new line
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        hideAutocomplete();
+        handleSendMessage();
+      }
+    });
+
+    // Debounced search input (300ms)
+    userInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(handleAutocompleteInput, 300);
+    });
+
+    // Suggestion Chips Handler
+    suggestionChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const chipText = chip.innerText.trim();
+        let promptText = "";
+
+        if (chipText.includes("Register Number")) {
+          promptText = "Search student with Register Number 21525100008";
+        } else if (chipText.includes("Student Name")) {
+          promptText = "Show profile of Aathish";
+        } else if (chipText.includes("Grades")) {
+          promptText = "Show grades for 21525100008";
+        } else if (chipText.includes("Student Mobile")) {
+          promptText = "Show Student Mobile Number for 21525100008";
+        } else if (chipText.includes("Complete Student Profile")) {
+          promptText = "Show complete profile of 21525100008";
+        } else {
+          promptText = chip.getAttribute('data-query') || chipText;
+        }
+
+        populateInputPrompt(promptText);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userInput.contains(e.target) && !autocompleteBox.contains(e.target)) {
+        hideAutocomplete();
+      }
+    });
+  });
+
+  // Populate prompt into input box and set focus
+  function populateInputPrompt(text) {
+    userInput.value = text;
+    userInput.focus();
+    const len = userInput.value.length;
+    userInput.setSelectionRange(len, len);
+  }
+
+  // Direct Boot into DSU-SET IT Assistant
+  function initITAssistant() {
+    if (window.DSU_DEPARTMENTS_DATA && window.DSU_DEPARTMENTS_DATA['IT']) {
+      activeStudents = window.DSU_DEPARTMENTS_DATA['IT'];
+    } else {
+      activeStudents = [];
+    }
+
+    studentMap = {};
+    activeStudents.forEach(st => {
+      studentMap[st.register_no] = st;
+    });
+
+    conversationHistory = [];
+    messagesStream.innerHTML = '';
+
+    appendBotMessage(`Hello! I am your **DSU-SET IT Assistant** (${activeStudents.length} IT student records loaded). How can I help you today?`);
+  }
+
+  // Autocomplete Input Handler (3+ chars)
+  function handleAutocompleteInput() {
+    const val = userInput.value.trim().toLowerCase();
+    if (!val || val.length < 3) {
+      hideAutocomplete();
+      return;
+    }
+
+    const matches = activeStudents.filter(st => 
+      st.register_no.toLowerCase().includes(val) ||
+      st.name.toLowerCase().includes(val) ||
+      (st.parent_name && st.parent_name.toLowerCase().includes(val)) ||
+      (st.parent_mobile && st.parent_mobile.includes(val)) ||
+      (st.student_mobile && st.student_mobile.includes(val))
+    ).slice(0, 5);
+
+    if (matches.length === 0) {
+      hideAutocomplete();
+      return;
+    }
+
+    autocompleteBox.innerHTML = matches.map(st => `
+      <div class="autocomplete-item" data-reg="${st.register_no}">
+        <strong>${st.name}</strong> &bull; Reg: ${st.register_no}
+      </div>
+    `).join('');
+
+    autocompleteBox.classList.remove('hidden');
+
+    document.querySelectorAll('.autocomplete-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const reg = item.getAttribute('data-reg');
+        populateInputPrompt(`Show complete profile of ${reg}`);
+        hideAutocomplete();
+      });
+    });
+  }
+
+  function hideAutocomplete() {
+    autocompleteBox.classList.add('hidden');
+  }
+
+  // Netlify Functions Chat Backend Caller (All messages go through Gemini)
+  async function askGemini(prompt, history) {
+    const response = await fetch("/.netlify/functions/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: prompt, history: history })
+    });
+    const data = await response.json();
+    if (!response.ok || !data.reply) {
+      console.error("Gemini API call failed with status:", response.status, "Response details:", data);
+      return "Sorry, I'm having trouble reaching the AI service right now.";
+    }
+    return data.reply;
+  }
+
+  // Handle User Message Submission
+  async function handleSendMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    appendUserMessage(text);
+    userInput.value = '';
+    userInput.focus();
+
+    // Push user message into conversation history
+    conversationHistory.push({ role: 'user', text: text });
+    if (conversationHistory.length > 8) {
+      conversationHistory = conversationHistory.slice(-8);
+    }
+
+    // Show 3-dot typing indicator and scroll smoothly
+    const typingIndicator = createTypingIndicator();
+    messagesStream.appendChild(typingIndicator);
+    scrollToBottomSmooth();
+
+    try {
+      const reply = await askGemini(text, conversationHistory);
+      typingIndicator.remove();
+
+      // Push bot response into conversation history
+      conversationHistory.push({ role: 'model', text: reply });
+      if (conversationHistory.length > 8) {
+        conversationHistory = conversationHistory.slice(-8);
+      }
+
+      appendBotMessage(reply);
+    } catch (err) {
+      console.error("Error communicating with Netlify function:", err);
+      typingIndicator.remove();
+      appendBotMessage("Sorry, I'm having trouble reaching the AI service right now.");
+    }
+  }
+
+  function exportDatasetCSV() {
+    if (!activeStudents || activeStudents.length === 0) return;
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += `"S.No","Register Number","Student Name","Branch","Parent Name","Address","Student Mobile","Parent Mobile"\n`;
+
+    activeStudents.forEach(st => {
+      csvContent += `"${st.s_no}","${st.register_no}","${st.name}","IT-A","${st.parent_name || 'Not Available'}","${st.address || 'Not Available'}","${st.student_mobile || 'Not Available'}","${st.parent_mobile || 'Not Available'}"\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `DSU_SET_IT_students_dataset.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // User Message (Right Aligned)
+  function appendUserMessage(text) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper user';
+    wrapper.innerHTML = `
+      <div class="message-label user">You</div>
+      <div class="message-bubble user">${escapeHtml(text)}</div>
+    `;
+    messagesStream.appendChild(wrapper);
+    scrollToBottomSmooth();
+  }
+
+  // Assistant Message (Left Aligned - Single uniform AI-assisted badge)
+  function appendBotMessage(markdownText) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper bot';
+
+    const formattedText = simpleMarkdownParse(markdownText);
+    const badge = `<span class="ai-badge" title="Response generated by Gemini AI">✨ AI-assisted</span>`;
+
+    const escapedMarkdown = markdownText ? markdownText.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$') : '';
+
+    wrapper.innerHTML = `
+      <div class="message-label bot"><span>DSU-SET IT Assistant</span> ${badge}</div>
+      <div class="bot-text-bubble">${formattedText}</div>
+      ${markdownText ? `<button class="copy-btn" onclick="navigator.clipboard.writeText(\`${escapedMarkdown}\`)" title="Copy text">Copy</button>` : ''}
+    `;
+    messagesStream.appendChild(wrapper);
+    scrollToBottomSmooth();
+  }
+
+  // Typing Indicator
+  function createTypingIndicator() {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper bot';
+    wrapper.innerHTML = `
+      <div class="message-label bot"><span>DSU-SET IT Assistant</span> ✨</div>
+      <div class="bot-text-bubble" style="font-style: italic; color: #8b5cf6; display: flex; align-items: center; gap: 8px;">
+        <span>✨ DSU-SET IT Assistant is thinking...</span>
+        <div class="typing-dots">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  function scrollToBottomSmooth() {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+      messagesStream.scrollTo({
+        top: messagesStream.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 60);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function simpleMarkdownParse(text) {
+    if (!text) return '';
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/^[\*\-] (.*?)$/gm, '<li style="margin-left: 14px;">$1</li>')
+      .replace(/\n/g, '<br>');
+  }
+})();

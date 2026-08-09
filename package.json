@@ -1,0 +1,11 @@
+{
+  "name": "dsu-set-it-assistant",
+  "version": "1.0.0",
+  "description": "DSU-SET IT Assistant Chatbot with Netlify Functions backend",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}

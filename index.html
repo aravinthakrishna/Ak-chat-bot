@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSU-SET IT Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Full Viewport Subtle Gradient Glow (18% Opacity) -->
+  <div class="gradient-glow-bg"></div>
+
+  <div id="app" class="app-container">
+    <!-- Navigation Bar (Height: 64px) -->
+    <header class="app-top-nav header">
+      <div class="brand-title">
+        <span class="sparkle-icon">✨</span>
+        <span>DSU-SET IT Assistant</span>
+      </div>
+      <div class="nav-actions">
+        <button id="export-csv-btn" class="nav-btn">Export CSV</button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container chat-wrapper">
+      <!-- Chat Screen (Direct Boot) -->
+      <main id="chat-screen" class="screen chat-section chat-container">
+        <div class="chat-hero-header hero-section">
+          <div class="hero-sparkle" style="font-size: 2rem; margin-bottom: 4px;">✨</div>
+          <h1 class="chat-hero-title">DSU-SET IT Assistant</h1>
+          <p class="chat-hero-subtitle">Ask anything about DSU-SET IT students, academic records, attendance, grades, parent details, faculty information, and department-related queries.</p>
+        </div>
+
+        <!-- 5 Suggestion Chips -->
+        <div class="chips-container search-section">
+          <div class="chips-scroll">
+            <button class="suggestion-chip" data-query="21525100008">🔍 Search by Register Number</button>
+            <button class="suggestion-chip" data-query="Aathish">👤 Search by Student Name</button>
+            <button class="suggestion-chip" data-query="Show grades for 21525100008">📊 View Student Grades</button>
+            <button class="suggestion-chip" data-query="Student Mobile for 21525100008">📞 Student Mobile</button>
+            <button class="suggestion-chip" data-query="Show complete profile of 21525100008">📄 Complete Student Profile</button>
+          </div>
+        </div>
+
+        <!-- Messages Stream -->
+        <div id="messages-stream" class="messages-stream messages chat-messages"></div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-container chat-input">
+          <div id="autocomplete-box" class="autocomplete-box hidden"></div>
+          <div class="input-bar">
+            <input type="text" id="user-input" placeholder="Ask about any IT student..." autocomplete="off">
+            <button id="send-btn" class="send-btn" title="Send message">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13"></path>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="data/departments.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
