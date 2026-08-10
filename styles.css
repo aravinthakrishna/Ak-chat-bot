@@ -305,6 +305,12 @@ html, body {
   gap: 4px;
 }
 
+.ai-badge.instant-local {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
 .local-badge {
   font-size: 0.72rem;
   background: rgba(148, 163, 184, 0.12);

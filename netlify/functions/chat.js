@@ -159,6 +159,16 @@ Rules:
   return data.choices[0].message.content;
 }
 
+function isBareRegisterNumberQuery(text) {
+  const trimmed = (text || '').trim().replace(/[\.\?\,\:]+$/, '');
+  return /^(show\s+complete\s+profile\s+of|show\s+profile\s+of|show\s+profile|show|register\s*(no\.?)?|reg\s*(no\.?)?)?\s*:?\s*\d{11}\s*$/i.test(trimmed);
+}
+
+function extractRegisterNumber(text) {
+  const match = text.match(/\d{11}/);
+  return match ? match[0] : null;
+}
+
 exports.handler = async function (event) {
   const startTime = Date.now();
   let message = "";
@@ -172,6 +182,24 @@ exports.handler = async function (event) {
         statusCode: 400,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ error: "Message is required." })
+      };
+    }
+
+    // Check if it's a bare register number query -> Skip AI entirely and serve instantly from local dataset
+    if (isBareRegisterNumberQuery(message)) {
+      const regNo = extractRegisterNumber(message);
+      const student = itRoster.find(s => s.register_no === regNo);
+      let replyText = "";
+      if (student) {
+        replyText = formatProfileLocally(student);
+      } else {
+        replyText = `I couldn't find a student with register number ${regNo}.`;
+      }
+      console.log(`[Instant Local Lookup] Handled bare reg query ${regNo} in ${Date.now() - startTime}ms`);
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reply: replyText, source: "instant_local", isInstantLocal: true, responseTimeMs: Date.now() - startTime })
       };
     }
 
