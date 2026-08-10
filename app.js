@@ -137,6 +137,12 @@
     autocompleteBox.classList.add('hidden');
   }
 
+  const QUERY_STOP_WORDS = new Set([
+    'SHOW', 'PROFILE', 'OF', 'DETAILS', 'FOR', 'STUDENT', 'THE', 'WITH',
+    'REGISTER', 'NUMBER', 'NO', 'COMPLETE', 'HI', 'HELLO', 'WHAT', 'IS',
+    'CAN', 'YOU', 'SEARCH', 'PARENT', 'GET', 'DATA', 'RECORD', 'INFORMATION'
+  ]);
+
   // Client-side fallback student finder when AI service or backend fails
   function findMatchingStudentsLocally(userMessage, roster) {
     if (!userMessage || !roster || !Array.isArray(roster) || roster.length === 0) return [];
@@ -157,36 +163,24 @@
     );
     if (phoneMatches.length > 0) return phoneMatches;
 
-    // 4. Exact Full Name Match
+    // 4. Exact Full Name Match (or student name inside userMessage)
     const fullNameMatches = roster.filter(st => st.name && text.includes(st.name.toUpperCase()));
     if (fullNameMatches.length > 0) return fullNameMatches;
 
-    // 5. Name without Initial
-    const cleanNameMatches = roster.filter(st => {
-      if (!st.name) return false;
-      const nameWithoutInitial = st.name.replace(/\s+[A-Z]$/, '').trim().toUpperCase();
-      return nameWithoutInitial.length >= 3 && text.includes(nameWithoutInitial);
-    });
-    if (cleanNameMatches.length > 0) return cleanNameMatches;
-
-    // 6. Individual name parts (words >= 4 chars)
-    const wordMatches = roster.filter(st => {
-      if (!st.name) return false;
-      const parts = st.name.toUpperCase().split(/\s+/);
-      return parts.some(part => part.length >= 4 && text.includes(part));
-    });
-    if (wordMatches.length > 0) return wordMatches;
-
-    // 7. Check Parent Name
-    const parentMatches = roster.filter(st => {
-      if (!st.parent_name || st.parent_name === "Not Available") return false;
-      const parentClean = st.parent_name.replace(/\s+[A-Z]$/, '').trim().toUpperCase();
-      return parentClean.length >= 4 && text.includes(parentClean);
-    });
-    if (parentMatches.length > 0) return parentMatches;
+    // 5. Query word tokens matching student name or parent name
+    const words = text.split(/[^A-Z0-9]+/).filter(w => w.length >= 3 && !QUERY_STOP_WORDS.has(w));
+    if (words.length > 0) {
+      const tokenMatches = roster.filter(st => {
+        const stName = (st.name || '').toUpperCase();
+        const stParent = (st.parent_name || '').toUpperCase();
+        return words.some(w => stName.includes(w) || (stParent !== 'NOT AVAILABLE' && stParent.includes(w)));
+      });
+      if (tokenMatches.length > 0) return tokenMatches;
+    }
 
     return [];
   }
+
 
   function formatProfileLocally(st) {
     return `**Student Record:**

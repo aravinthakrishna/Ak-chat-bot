@@ -18,8 +18,8 @@ function setCachedReply(key, reply) {
   responseCache.set(key, reply);
 }
 
-// Load .env locally if OPENCODE_API_KEY or GEMINI_API_KEY is not set in environment
-if (!process.env.OPENCODE_API_KEY && !process.env.GEMINI_API_KEY) {
+// Load .env locally if OPENCODE_ZEN_API_KEY or OPENCODE_API_KEY is not set in environment
+if (!process.env.OPENCODE_ZEN_API_KEY && !process.env.OPENCODE_API_KEY) {
   try {
     const envPath = path.resolve(__dirname, '../../.env');
     if (fs.existsSync(envPath)) {
@@ -38,35 +38,14 @@ if (!process.env.OPENCODE_API_KEY && !process.env.GEMINI_API_KEY) {
   }
 }
 
-// Streamlined Base System Instruction
-const BASE_SYSTEM_INSTRUCTION = `You are the DSU-SET IT Assistant, a friendly, natural-sounding helper for university staff.
-Rules:
-- Answer naturally and concisely.
-- Only state facts provided in context. Never invent phone numbers, addresses, or grades.
-- If asked about a student not in context, reply conversationally.
-- Keep answers brief and to the point.`;
+// Query stop words to prevent false token matches
+const QUERY_STOP_WORDS = new Set([
+  'SHOW', 'PROFILE', 'OF', 'DETAILS', 'FOR', 'STUDENT', 'THE', 'WITH',
+  'REGISTER', 'NUMBER', 'NO', 'COMPLETE', 'HI', 'HELLO', 'WHAT', 'IS',
+  'CAN', 'YOU', 'SEARCH', 'PARENT', 'GET', 'DATA', 'RECORD', 'INFORMATION'
+]);
 
-// Dynamic system instruction: attaches ONLY 1 student record for targeted lookups, NO records for general chat
-function getDynamicSystemInstruction(message) {
-  const text = (message || '').toLowerCase();
-  
-  // 1. Explicit request for full dataset / all students
-  const isAggregateQuery = text.includes('all student') || text.includes('list student') || text.includes('full roster') || text.includes('dataset');
-  if (isAggregateQuery) {
-    return `${BASE_SYSTEM_INSTRUCTION}\n\nHere is the IT student roster:\n${JSON.stringify(itRoster, null, 2)}`;
-  }
-
-  // 2. Targeted query for specific student(s) -> attach ONLY matched student record(s)
-  const matches = findMatchingStudents(message, itRoster);
-  if (matches.length > 0) {
-    return `${BASE_SYSTEM_INSTRUCTION}\n\nHere is the requested student record context:\n${JSON.stringify(matches, null, 2)}`;
-  }
-
-  // 3. General conversation / greeting -> NO student roster attached
-  return BASE_SYSTEM_INSTRUCTION;
-}
-
-// Local roster matcher
+// Local roster matcher — returns matched student(s) or empty array [] if no match
 function findMatchingStudents(userMessage, roster) {
   if (!userMessage || !roster || !Array.isArray(roster) || roster.length === 0) return [];
   const text = userMessage.trim().toUpperCase();
@@ -86,33 +65,20 @@ function findMatchingStudents(userMessage, roster) {
   );
   if (phoneMatches.length > 0) return phoneMatches;
 
-  // 4. Exact Full Name Match
+  // 4. Exact Full Name Match (or student name inside userMessage)
   const fullNameMatches = roster.filter(st => st.name && text.includes(st.name.toUpperCase()));
   if (fullNameMatches.length > 0) return fullNameMatches;
 
-  // 5. Name without Initial
-  const cleanNameMatches = roster.filter(st => {
-    if (!st.name) return false;
-    const nameWithoutInitial = st.name.replace(/\s+[A-Z]$/, '').trim().toUpperCase();
-    return nameWithoutInitial.length >= 3 && text.includes(nameWithoutInitial);
-  });
-  if (cleanNameMatches.length > 0) return cleanNameMatches;
-
-  // 6. Individual name parts
-  const wordMatches = roster.filter(st => {
-    if (!st.name) return false;
-    const parts = st.name.toUpperCase().split(/\s+/);
-    return parts.some(part => part.length >= 4 && text.includes(part));
-  });
-  if (wordMatches.length > 0) return wordMatches;
-
-  // 7. Parent Name
-  const parentMatches = roster.filter(st => {
-    if (!st.parent_name || st.parent_name === "Not Available") return false;
-    const parentClean = st.parent_name.replace(/\s+[A-Z]$/, '').trim().toUpperCase();
-    return parentClean.length >= 4 && text.includes(parentClean);
-  });
-  if (parentMatches.length > 0) return parentMatches;
+  // 5. Query word tokens matching student name or parent name
+  const words = text.split(/[^A-Z0-9]+/).filter(w => w.length >= 3 && !QUERY_STOP_WORDS.has(w));
+  if (words.length > 0) {
+    const tokenMatches = roster.filter(st => {
+      const stName = (st.name || '').toUpperCase();
+      const stParent = (st.parent_name || '').toUpperCase();
+      return words.some(w => stName.includes(w) || (stParent !== 'NOT AVAILABLE' && stParent.includes(w)));
+    });
+    if (tokenMatches.length > 0) return tokenMatches;
+  }
 
   return [];
 }
@@ -134,10 +100,23 @@ function formatMultipleProfilesLocally(students) {
   return students.map(st => formatProfileLocally(st)).join("\n\n---\n\n");
 }
 
-// Call OpenCode API (Primary Provider) - Fast Light Tier with 350 token cap and 12s timeout
-async function callOpenCodeApi(opencodeKey, message, history, systemInstruction) {
+// Call OpenCode Zen OpenAI-compatible API
+async function askOpenCodeZen(prompt, studentContext, history) {
+  const apiKey = process.env.OPENCODE_ZEN_API_KEY || process.env.OPENCODE_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENCODE_ZEN_API_KEY is missing from environment");
+  }
+
+  const systemContent = `You are the DSU-SET IT Assistant, a friendly, natural-sounding helper for university staff.
+${studentContext ? `Here is the relevant student record as JSON: ${JSON.stringify(studentContext)}` : "No specific student record is relevant to this message."}
+Rules:
+- Answer naturally, like a helpful colleague — no robotic templated phrases.
+- Only state facts present in the provided JSON. Never invent a phone number, address, or grade.
+- If asked about a student not provided in context, say so conversationally.
+- If someone greets you or makes general conversation, respond naturally and briefly.`;
+
   const messages = [
-    { role: 'system', content: systemInstruction }
+    { role: "system", content: systemContent }
   ];
 
   if (Array.isArray(history)) {
@@ -152,103 +131,32 @@ async function callOpenCodeApi(opencodeKey, message, history, systemInstruction)
   }
 
   const lastMsg = messages[messages.length - 1];
-  if (!lastMsg || lastMsg.role !== 'user' || lastMsg.content !== message) {
-    messages.push({ role: 'user', content: message });
+  if (!lastMsg || lastMsg.role !== 'user' || lastMsg.content !== prompt) {
+    messages.push({ role: "user", content: prompt });
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s max timeout
+  const model = process.env.OPENCODE_MODEL || "laguna-s-2.1-free";
 
-  try {
-    const response = await fetch("https://opencode.ai/zen/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${opencodeKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: 'deepseek-v4-flash-free',
-        messages: messages,
-        max_tokens: 350
-      }),
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-    const data = await response.json();
-
-    if (response.ok && data.choices && data.choices[0]?.message?.content) {
-      return data.choices[0].message.content;
-    }
-
-    const errDetail = data.error?.message || response.statusText || response.status;
-    throw new Error(`OpenCode error (${response.status}): ${errDetail}`);
-  } catch (e) {
-    clearTimeout(timeoutId);
-    throw e;
-  }
-}
-
-// Call Gemini API (Fallback Provider) - Fast Light Tier with 350 token cap and 6s timeout
-async function callGeminiApi(geminiKey, message, history, systemInstruction) {
-  const contents = [];
-
-  if (Array.isArray(history)) {
-    history.slice(-6).forEach(item => {
-      if (item && item.text) {
-        contents.push({
-          role: item.role === 'model' || item.role === 'assistant' ? 'model' : 'user',
-          parts: [{ text: item.text }]
-        });
-      }
-    });
-  }
-
-  const lastItem = contents[contents.length - 1];
-  if (!lastItem || lastItem.role !== 'user' || lastItem.parts[0]?.text !== message) {
-    contents.push({
-      role: 'user',
-      parts: [{ text: message }]
-    });
-  }
-
-  const payload = {
-    system_instruction: {
-      parts: [{ text: systemInstruction }]
+  const response = await fetch("https://opencode.ai/zen/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`
     },
-    contents: contents,
-    generationConfig: {
-      maxOutputTokens: 350
-    }
-  };
+    body: JSON.stringify({
+      model: model,
+      messages: messages,
+      max_tokens: 400
+    })
+  });
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout
-
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      }
-    );
-
-    clearTimeout(timeoutId);
-    const data = await response.json();
-
-    if (!response.ok || !data.candidates || !data.candidates[0]?.content?.parts[0]?.text) {
-      const errDetail = data.error?.message || response.statusText || response.status;
-      throw new Error(`Gemini API error (${response.status}): ${errDetail}`);
-    }
-
-    return data.candidates[0].content.parts[0].text;
-  } catch (e) {
-    clearTimeout(timeoutId);
-    throw e;
+  const data = await response.json();
+  if (!response.ok || !data.choices || !data.choices[0]?.message?.content) {
+    console.error("OpenCode Zen API failed:", response.status, JSON.stringify(data));
+    throw new Error(`OpenCode Zen API error (${response.status})`);
   }
+
+  return data.choices[0].message.content;
 }
 
 exports.handler = async function (event) {
@@ -279,65 +187,49 @@ exports.handler = async function (event) {
       };
     }
 
-    const opencodeKey = process.env.OPENCODE_API_KEY;
-    const geminiKey = process.env.GEMINI_API_KEY;
-    const systemInstruction = getDynamicSystemInstruction(message);
+    const matches = findMatchingStudents(message, itRoster);
+    const matchedStudent = matches.length === 1 ? matches[0] : (matches.length > 1 ? matches : null);
 
-    let reply = "";
-
-    // Primary Provider: OpenCode API
-    if (opencodeKey) {
-      try {
-        reply = await callOpenCodeApi(opencodeKey, message, history, systemInstruction);
-      } catch (err) {
-        console.warn("OpenCode API failed, switching to Gemini API fallback:", err.message);
-      }
-    }
-
-    // Secondary Provider: Gemini API
-    if (!reply && geminiKey) {
-      try {
-        reply = await callGeminiApi(geminiKey, message, history, systemInstruction);
-      } catch (err) {
-        console.warn("Gemini API failed:", err.message);
-      }
-    }
-
-    if (reply) {
+    try {
+      const reply = await askOpenCodeZen(message, matchedStudent, history);
       setCachedReply(normalizedKey, reply);
-      console.log(`[AI Success] Processed request in ${Date.now() - startTime}ms`);
+      console.log(`[OpenCode Zen Success] Processed request in ${Date.now() - startTime}ms`);
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reply, responseTimeMs: Date.now() - startTime })
       };
-    }
+    } catch (err) {
+      console.warn("OpenCode Zen unavailable, serving local data instead:", err.message);
 
-    throw new Error("All AI providers failed.");
-  } catch (err) {
-    console.warn("AI service call failed, attempting local record matching:", err.message);
+      if (matchedStudent) {
+        const localFormatted = Array.isArray(matchedStudent)
+          ? formatMultipleProfilesLocally(matchedStudent)
+          : formatProfileLocally(matchedStudent);
+        const fallbackReply = localFormatted +
+          "\n\n_(AI service is currently unavailable — showing local record data instead.)_";
+        return {
+          statusCode: 200,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reply: fallbackReply, fallback: true, responseTimeMs: Date.now() - startTime })
+        };
+      }
 
-    const matches = findMatchingStudents(message, itRoster);
-    if (matches.length > 0) {
-      const identifier = matches.map(st => st.register_no || st.name).join(", ");
-      console.warn("Served from local dataset in", Date.now() - startTime, "ms:", identifier);
-      const fallbackReply = formatMultipleProfilesLocally(matches) +
-        "\n\n_(AI service is currently unavailable — showing local record data instead.)_";
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reply: fallbackReply, fallback: true, responseTimeMs: Date.now() - startTime })
+        body: JSON.stringify({
+          reply: "Sorry, I'm having trouble reaching the AI service right now, and I couldn't find a matching student in the local records either.",
+          fallback: false,
+          responseTimeMs: Date.now() - startTime
+        })
       };
     }
-
+  } catch (err) {
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        reply: "Sorry, I'm having trouble reaching the AI service right now, and I couldn't find a matching student in the local records either.",
-        fallback: false,
-        responseTimeMs: Date.now() - startTime
-      })
+      body: JSON.stringify({ error: err.message })
     };
   }
 };
