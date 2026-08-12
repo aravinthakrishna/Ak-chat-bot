@@ -192,7 +192,9 @@
 - **Parent Name:** ${st.parent_name || 'Not Available'}
 - **Parent Mobile:** ${st.parent_mobile || 'Not Available'}
 - **Address:** ${st.address || 'Not Available'}
-- **Pincode:** ${st.pincode || 'N/A'}`;
+- **Pincode:** ${st.pincode || 'N/A'}
+- **Religion:** ${st.religion || 'Not Available'}
+- **Commute Type:** ${st.commute_type || 'Not Available'}`;
   }
 
   function formatMultipleProfilesLocally(students) {
@@ -207,21 +209,6 @@
   function extractRegisterNumber(text) {
     const match = text.match(/\d{11}/);
     return match ? match[0] : null;
-  }
-
-  function formatProfileLocally(student) {
-    return `**${student.name}** (Reg. No: ${student.register_no})
-Admission No: ${student.admission_no || 'N/A'}
-Department: ${student.department || 'IT'}
-Student Mobile: ${student.student_mobile || 'Not Available'}
-Parent Name: ${student.parent_name || 'Not Available'}
-Parent Mobile: ${student.parent_mobile || 'Not Available'}
-Address: ${student.address || 'Not Available'}
-Pincode: ${student.pincode || 'N/A'}`;
-  }
-
-  function formatMultipleProfilesLocally(students) {
-    return students.map(st => formatProfileLocally(st)).join("\n\n---\n\n");
   }
 
   // Netlify Functions Chat Backend Caller with Client-Side Cache
@@ -330,10 +317,10 @@ Pincode: ${student.pincode || 'N/A'}`;
     if (!activeStudents || activeStudents.length === 0) return;
 
     let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += `"S.No","Register Number","Student Name","Branch","Parent Name","Address","Student Mobile","Parent Mobile"\n`;
+    csvContent += `"S.No","Register Number","Admission Number","Student Name","Branch","Parent Name","Address","Pincode","Student Mobile","Parent Mobile","Religion","Commute Type"\n`;
 
     activeStudents.forEach(st => {
-      csvContent += `"${st.s_no}","${st.register_no}","${st.name}","IT-A","${st.parent_name || 'Not Available'}","${st.address || 'Not Available'}","${st.student_mobile || 'Not Available'}","${st.parent_mobile || 'Not Available'}"\n`;
+      csvContent += `"${st.s_no}","${st.register_no}","${st.admission_no || 'N/A'}","${st.name}","${st.department || 'IT'}","${st.parent_name || 'Not Available'}","${(st.address || 'Not Available').replace(/"/g, '""')}","${st.pincode || 'N/A'}","${st.student_mobile || 'Not Available'}","${st.parent_mobile || 'Not Available'}","${st.religion || 'Not Available'}","${st.commute_type || 'Not Available'}"\n`;
     });
 
     const encodedUri = encodeURI(csvContent);

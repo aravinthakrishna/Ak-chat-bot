@@ -93,7 +93,9 @@ function formatProfileLocally(st) {
 - **Parent Name:** ${st.parent_name || 'Not Available'}
 - **Parent Mobile:** ${st.parent_mobile || 'Not Available'}
 - **Address:** ${st.address || 'Not Available'}
-- **Pincode:** ${st.pincode || 'N/A'}`;
+- **Pincode:** ${st.pincode || 'N/A'}
+- **Religion:** ${st.religion || 'Not Available'}
+- **Commute Type:** ${st.commute_type || 'Not Available'}`;
 }
 
 function formatMultipleProfilesLocally(students) {

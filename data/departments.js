@@ -9,9 +9,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7639537209",
       "parent_name": "SELVAKUMAR K",
-      "parent_mobile": "8667292413",
+      "parent_mobile": "9786157209",
       "address": "6, KUNJAN STREET, KILAMANGALAM, Tamil Nadu - 614615",
-      "pincode": "614615"
+      "pincode": "614615",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 2,
@@ -21,9 +23,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7358947734",
       "parent_name": "SULTHAN S",
-      "parent_mobile": "9345557040",
+      "parent_mobile": "9698447734",
       "address": "58/6, MANIVILAN 5TH STREET ARANTHANGI,, Tamil Nadu - 614616",
-      "pincode": "614616"
+      "pincode": "614616",
+      "religion": "MUSLIM",
+      "commute_type": "OB/CB"
     },
     {
       "s_no": 3,
@@ -33,9 +37,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9894581774",
       "parent_name": "SANKAR M",
-      "parent_mobile": "9626048613",
+      "parent_mobile": "9894581774",
       "address": "HOSPITAL STREET, RANGANATHAPURAM AGARAKOTTALAM, Tamil Nadu - 606213",
-      "pincode": "606213"
+      "pincode": "606213",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 4,
@@ -45,9 +51,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7904964583",
       "parent_name": "PALANIKUMAR",
-      "parent_mobile": "6384426736",
+      "parent_mobile": "9047639512",
       "address": "12/55-6B, PERIYAR NAGAR, THIRUPPATHUR, Tamil Nadu - 630211",
-      "pincode": "630211"
+      "pincode": "630211",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 5,
@@ -59,7 +67,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "JOHN ROBERT A",
       "parent_mobile": "9025904721",
       "address": "2/179A, S GOLLA PATTI, SELLIYAM PATTI,, Tamil Nadu - 636809",
-      "pincode": "636809"
+      "pincode": "636809",
+      "religion": "CHRISTIAN",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 6,
@@ -71,7 +81,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "AJITHKUMAR",
       "parent_mobile": "9751258017",
       "address": "DOOR NO-56, KEEZHA THERU VALAJANAGARAM, Tamil Nadu - 621704",
-      "pincode": "621704"
+      "pincode": "621704",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 7,
@@ -83,7 +95,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "ARIVAZHAGAN P",
       "parent_mobile": "9361903522",
       "address": "ARIVAZHAGAN, PADAIVETTKUDIKADU MANAPATUR, Tamil Nadu - 621709",
-      "pincode": "621709"
+      "pincode": "621709",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 8,
@@ -95,7 +109,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SRINIVASARAGAVAN S",
       "parent_mobile": "9789310140",
       "address": "6/11/320 S.S KOVIL ST PARAMAKKUDI PO, Tamil Nadu - 623707",
-      "pincode": "623707"
+      "pincode": "623707",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 9,
@@ -107,7 +123,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MUBARAK BASHA",
       "parent_mobile": "9655584080",
       "address": "2/3, USAMAN NAGAR, KARIMSHATHAKKA PRIMIVIMANGALAM, VILLUPURAM, Tamil Nadu - 606206",
-      "pincode": "606206"
+      "pincode": "606206",
+      "religion": "MUSLIM",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 10,
@@ -119,7 +137,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "ANNAMALAI",
       "parent_mobile": "9543662677",
       "address": "SCHOOL STREET, POOTAI, SANKARAPURAM,, Tamil Nadu - 606401",
-      "pincode": "606401"
+      "pincode": "606401",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 11,
@@ -131,7 +151,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "BASKARAN M",
       "parent_mobile": "9790047127",
       "address": "5/10,RETTIPATTI,IDAPPADI, Tamil Nadu - 637102",
-      "pincode": "637102"
+      "pincode": "637102",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 12,
@@ -143,7 +165,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SANMUGAM C",
       "parent_mobile": "6382551525",
       "address": "NORTH STREET, VTC CHINNAKOLLIYUR, PERIYAKOLLIYUR, SANKARAPURAM, Tamil Nadu - 605801",
-      "pincode": "605801"
+      "pincode": "605801",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 13,
@@ -153,9 +177,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9345244481",
       "parent_name": "GUNASEKARAN K",
-      "parent_mobile": "7708717957",
+      "parent_mobile": "9442120527",
       "address": "25 G, NEW STREET, PARAMATHI VELUR, POTHANUR,, Tamil Nadu - 638181",
-      "pincode": "638181"
+      "pincode": "638181",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 14,
@@ -167,7 +193,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SAKTHIVEL R",
       "parent_mobile": "6381649375",
       "address": "2/53, MAIN ROAD, PAVITHIRAMANIKAM, ELAVANGUDI, KODAVASAL, Tamil Nadu - 610104",
-      "pincode": "610104"
+      "pincode": "610104",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 15,
@@ -179,7 +207,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MURUGESH M",
       "parent_mobile": "9080483180",
       "address": "1/39, DEVAR STREET, KALLAKOTTAI, GANDARVAKOTTAI, Tamil Nadu - 622302",
-      "pincode": "622302"
+      "pincode": "622302",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 16,
@@ -191,7 +221,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MANNATHAN S",
       "parent_mobile": "8489687073",
       "address": "3/4, RAOAD STREET, KARUVEPPIALIPALAYAM ULUNDHURPETTAI, Tamil Nadu - 607204",
-      "pincode": "607204"
+      "pincode": "607204",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 17,
@@ -201,9 +233,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8610939507",
       "parent_name": "JAYARAMAN K",
-      "parent_mobile": "9136713588",
+      "parent_mobile": "9715310645",
       "address": "72, PILLAIYAR KOVIL STREET RAVATHANALUR PO, Tamil Nadu - 606402",
-      "pincode": "606402"
+      "pincode": "606402",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 18,
@@ -215,7 +249,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "BALUSAMY",
       "parent_mobile": "8300445433",
       "address": "1/396, WEST KURUMBA ST, VAIRICHETTIPALAYAM, THURAIYUR,, Tamil Nadu - 621012",
-      "pincode": "621012"
+      "pincode": "621012",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 19,
@@ -225,9 +261,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7397726378",
       "parent_name": "KARTHIKEYAN",
-      "parent_mobile": "8056459867",
+      "parent_mobile": "9750488368",
       "address": "10, GANDHIYAR STREET,, Tamil Nadu - 621704",
-      "pincode": "621704"
+      "pincode": "621704",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 20,
@@ -237,9 +275,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8248445198",
       "parent_name": "KARTHIKEYAN P",
-      "parent_mobile": "9042616326",
+      "parent_mobile": "8248445198",
       "address": "6/43, CHEKKU METTU STREET, VETTAVALAM, Tamil Nadu - 606754",
-      "pincode": "606754"
+      "pincode": "606754",
+      "religion": "HINDU",
+      "commute_type": "OB/CB"
     },
     {
       "s_no": 21,
@@ -251,7 +291,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SUBRAMANYAM K",
       "parent_mobile": "9701444262",
       "address": "8/19, MITTAKANDVIGA, NINDVA ANDHRA PRADESH, Tamil Nadu - 517591",
-      "pincode": "517591"
+      "pincode": "517591",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 22,
@@ -261,9 +303,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9361762536",
       "parent_name": "NAGARAJAN L",
-      "parent_mobile": "8508717519",
+      "parent_mobile": "9361762536",
       "address": "120/47 ,OLD HOSPITAL ROAD, Tamil Nadu - 614616",
-      "pincode": "614616"
+      "pincode": "614616",
+      "religion": "HINDU",
+      "commute_type": "OB"
     },
     {
       "s_no": 23,
@@ -275,7 +319,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SELVARASU C",
       "parent_mobile": "9943456861",
       "address": "3/12, SOUTH STREET, ELUMUR, KUNNAM, Tamil Nadu - 621115",
-      "pincode": "621115"
+      "pincode": "621115",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 24,
@@ -287,7 +333,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "BALAKRISHNAN M",
       "parent_mobile": "9786798581",
       "address": "1,62/2 CHINNA AMMANKUDI, ORATHANADU, Tamil Nadu - 614614",
-      "pincode": "614614"
+      "pincode": "614614",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 25,
@@ -297,9 +345,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7604947957",
       "parent_name": "SENTHILKANNAN",
-      "parent_mobile": "8778555648",
+      "parent_mobile": "9943412805",
       "address": "1ST WARD, MELUR UNION, KEELAIYUR, MELUR,, Tamil Nadu - 625106",
-      "pincode": "625106"
+      "pincode": "625106",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 26,
@@ -311,7 +361,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "RAJA M",
       "parent_mobile": "9047015836",
       "address": "208, NADUTHERU, OTHIYAM, ANDHRA PRADESH VTC ODIUM, KUNNAM,, Tamil Nadu - 621708",
-      "pincode": "621708"
+      "pincode": "621708",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 27,
@@ -323,7 +375,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SUBRAMANIYAN D",
       "parent_mobile": "9655381042",
       "address": "894,SOUTH STREET, VILAMBUR, Tamil Nadu - 606213",
-      "pincode": "606213"
+      "pincode": "606213",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 28,
@@ -335,7 +389,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SATHIK BASHA",
       "parent_mobile": "9787892442",
       "address": "35/2, MOHAMATHIYAR NEW COLONY 3RD ST MANGALAMPETTAI, MANGALAM PO, Tamil Nadu - 606104",
-      "pincode": "606104"
+      "pincode": "606104",
+      "religion": "MUSLIM",
+      "commute_type": "CB"
     },
     {
       "s_no": 29,
@@ -346,8 +402,10 @@ window.DSU_DEPARTMENTS_DATA = {
       "student_mobile": "7871772438",
       "parent_name": "ASRAF ALI A",
       "parent_mobile": "9500647314",
-      "address": "7/22, MARIYAMMAN KOVIL STREET, ATHIYUR, VANABURAM, Tamil Nadu - 606104",
-      "pincode": "606104"
+      "address": "7/22, MARIYAMMAN KOVIL STREET, ATHIYUR, VANABURAM, : 21525100046 : Register No : : Son/Daughter of 605801 Mobile No : 8610924868 Address Student Name 25,EAST STREET, MANGALAMPET, VIRUDHACHALAM,, Tamil Nadu - 606104",
+      "pincode": "606104",
+      "religion": "MUSLIM",
+      "commute_type": "CB"
     },
     {
       "s_no": 30,
@@ -359,7 +417,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MOHAMED JAKKRIYA M",
       "parent_mobile": "9750754358",
       "address": "SHANTHOSH COMPLEX, POLYTECHNIC OPPOSITE, ARANTHANGI, Tamil Nadu - 614616",
-      "pincode": "614616"
+      "pincode": "614616",
+      "religion": "MUSLIM",
+      "commute_type": "OB"
     },
     {
       "s_no": 31,
@@ -371,7 +431,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SARAVANAN S",
       "parent_mobile": "Not Available",
       "address": "38, DR.AMBETHUKAR THERU, ERAMPATI, VTC:NAMAKKAL, ERAMPATTI PO, Tamil Nadu - 637013",
-      "pincode": "637013"
+      "pincode": "637013",
+      "religion": "Not Available",
+      "commute_type": "Not Available"
     },
     {
       "s_no": 32,
@@ -381,9 +443,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9344570159",
       "parent_name": "NAGARAJAN",
-      "parent_mobile": "9080157639",
+      "parent_mobile": "9344570159",
       "address": "48, ANNA NAGAR, SAILOM THIRU KOVILUR, Tamil Nadu - 605757",
-      "pincode": "605757"
+      "pincode": "605757",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 33,
@@ -393,9 +457,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8148581344",
       "parent_name": "ANGAMUTHU C",
-      "parent_mobile": "9786139653",
+      "parent_mobile": "9578138750",
       "address": "1/69,MARIYAMMAN KOVIL ST, KALARAMPATTI, Tamil Nadu - 621101",
-      "pincode": "621101"
+      "pincode": "621101",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 34,
@@ -407,7 +473,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MUTHUKRISHNAN",
       "parent_mobile": "9360801734",
       "address": "33-16-2B, VN COLONY, ERULAPPAPURAM, NAGAR COIL AGASTEESWARAM,, Tamil Nadu - 629002",
-      "pincode": "629002"
+      "pincode": "629002",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 35,
@@ -417,9 +485,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9360167477",
       "parent_name": "SINGARAM M",
-      "parent_mobile": "6382178261",
+      "parent_mobile": "9360167477",
       "address": "3/577, MARIYAMMAN KOVIL ST, SENGALPATTI PHACHAPERUMALPATTI PO, Tamil Nadu - 621003",
-      "pincode": "621003"
+      "pincode": "621003",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 36,
@@ -429,9 +499,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9342204542",
       "parent_name": "MARAVAN G",
-      "parent_mobile": "7867061330",
+      "parent_mobile": "6379271215",
       "address": "4/55, VEERAMANGALAM, ARANTHANGI, Tamil Nadu - 614616",
-      "pincode": "614616"
+      "pincode": "614616",
+      "religion": "HINDU",
+      "commute_type": "OB"
     },
     {
       "s_no": 37,
@@ -443,7 +515,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "MADHAVAN K",
       "parent_mobile": "9342534907",
       "address": "25/A, NALLIYAM PALAYAM, SORATHUR, THURAIYUR, Tamil Nadu - 621002",
-      "pincode": "621002"
+      "pincode": "621002",
+      "religion": "Not Available",
+      "commute_type": "Not Available"
     },
     {
       "s_no": 38,
@@ -453,9 +527,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9361568154",
       "parent_name": "GOPU ANTONY RAJ S",
-      "parent_mobile": "8760059838",
+      "parent_mobile": "7373837719",
       "address": "13/17. THIRUVALLUVAR STREET, NGO NAGAR, TRIUKKOILUR,, Tamil Nadu - 605757",
-      "pincode": "605757"
+      "pincode": "605757",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 39,
@@ -465,9 +541,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9150680523",
       "parent_name": "RAJENDRAN U",
-      "parent_mobile": "9865912977",
+      "parent_mobile": "9600630316",
       "address": "829, NETHAJI STREET, NARAYANAN NAGAR, Tamil Nadu - 605602",
-      "pincode": "605602"
+      "pincode": "605602",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 40,
@@ -477,9 +555,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8870569466",
       "parent_name": "PALANI",
-      "parent_mobile": "8438851916",
+      "parent_mobile": "7010169270",
       "address": "206-2, PARANKIVETTIKADU, ORATHANADU TK AMBALAPATTU SOUTH, Tamil Nadu - 614626",
-      "pincode": "614626"
+      "pincode": "614626",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 41,
@@ -491,7 +571,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "CHANDRASEKAR S",
       "parent_mobile": "8680006861",
       "address": "93, EAST ST PETHANAYAKANPALYAM, Tamil Nadu - 636109",
-      "pincode": "636109"
+      "pincode": "636109",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 42,
@@ -501,9 +583,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8667499877",
       "parent_name": "CHANDRASEKARAN",
-      "parent_mobile": "9629840802",
+      "parent_mobile": "9500442510",
       "address": "4/89, SOUTH STREET, SILATHUR, Tamil Nadu - 614622",
-      "pincode": "614622"
+      "pincode": "614622",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 43,
@@ -515,7 +599,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "GANESAN K R",
       "parent_mobile": "9688703889",
       "address": "57/9, KMP NAGAR, DEVAKOTTAI,, Tamil Nadu - 630302",
-      "pincode": "630302"
+      "pincode": "630302",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 44,
@@ -525,9 +611,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8610924868",
       "parent_name": "Not Available",
-      "parent_mobile": "9843977965",
+      "parent_mobile": "8870858536",
       "address": "7/22, Mariyamman Kovil Street, Athiyur, Vanaburam, Tamil Nadu - 605801",
-      "pincode": "605801"
+      "pincode": "605801",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 45,
@@ -539,7 +627,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SUPPU",
       "parent_mobile": "9940821187",
       "address": "11/07, KEELA ST, PALAYAM, Tamil Nadu - 621107",
-      "pincode": "621107"
+      "pincode": "621107",
+      "religion": "HINDU",
+      "commute_type": "OB"
     },
     {
       "s_no": 46,
@@ -549,9 +639,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8778056534",
       "parent_name": "RAMESHAN C",
-      "parent_mobile": "7373997480",
+      "parent_mobile": "7373997450",
       "address": "1/47, KALIFULLAH NAGAR, 2ND STREET, ALANGUDI,, Tamil Nadu - 622301",
-      "pincode": "622301"
+      "pincode": "622301",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 47,
@@ -561,9 +653,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8667486282",
       "parent_name": "THIRAVIYAM A",
-      "parent_mobile": "9488263530",
+      "parent_mobile": "9080345697",
       "address": "2/1385A, THANTHAI PERIYAR NAGAR 9 STREET BURMA COLONY, KARAIKUDI, Tamil Nadu - 630002",
-      "pincode": "630002"
+      "pincode": "630002",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 48,
@@ -573,9 +667,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "6374115987",
       "parent_name": "NAGARAJAN C",
-      "parent_mobile": "9952273849",
+      "parent_mobile": "6374115987",
       "address": "532-233A, MANJAVAYAL NORTH THAMARANKOTTAI SOUTH, PATTUKKOTTAI, Tamil Nadu - 614613",
-      "pincode": "614613"
+      "pincode": "614613",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 49,
@@ -587,7 +683,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "DHANDAPANI",
       "parent_mobile": "7639422191",
       "address": "34, MAIN ROAD, KUMALAM TK THOLUMALANGUDI, Tamil Nadu - 609808",
-      "pincode": "609808"
+      "pincode": "609808",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 50,
@@ -597,9 +695,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "7904176673",
       "parent_name": "RAVICHANDRAN S",
-      "parent_mobile": "9384952455",
+      "parent_mobile": "9384952454",
       "address": "4/48E, MAIN ROAD, ANAIKADU PATTUKKOTTAI, Tamil Nadu - 614602",
-      "pincode": "614602"
+      "pincode": "614602",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 51,
@@ -611,7 +711,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "THANGA RAMU T",
       "parent_mobile": "9994299639",
       "address": "8-4-3-9, SAMASKHAN PALLIVASAL THIRUPPATHUR, Tamil Nadu - 630211",
-      "pincode": "630211"
+      "pincode": "630211",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 52,
@@ -621,9 +723,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9025345084",
       "parent_name": "DHANASEKAR",
-      "parent_mobile": "6380048940",
+      "parent_mobile": "8939312363",
       "address": "3/715, J.P.NAGAR, RAJENDIRAPATTINAM VIRUDHACHALAM, Tamil Nadu - 608703",
-      "pincode": "608703"
+      "pincode": "608703",
+      "religion": "HINDU",
+      "commute_type": "OB/CB"
     },
     {
       "s_no": 53,
@@ -635,7 +739,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "PALANIVEL L",
       "parent_mobile": "9655880108",
       "address": "87/31B, NORTH STREET, SRI SAIRAM ILLAM BRINDHACANAM NAGAR,, Tamil Nadu - 621212",
-      "pincode": "621212"
+      "pincode": "621212",
+      "religion": "HINDU",
+      "commute_type": "OB"
     },
     {
       "s_no": 54,
@@ -647,7 +753,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "DHARMARAJ T",
       "parent_mobile": "9047781152",
       "address": "5/A1, KEELAKADU, NAVALUR, KATTUPATTU, SRIRANGAM TK, NAVALURKOTTAPATTU, Tamil Nadu - 620009",
-      "pincode": "620009"
+      "pincode": "620009",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 55,
@@ -659,7 +767,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "TAMILSELVAN M",
       "parent_mobile": "9626587922",
       "address": "81,AMBETKER STREET, THATCO COLONY, ERUMPATTI,SENDAMANGLAM,, Tamil Nadu - 637013",
-      "pincode": "637013"
+      "pincode": "637013",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 56,
@@ -669,9 +779,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "8870325848",
       "parent_name": "KUMAR",
-      "parent_mobile": "9790487093",
+      "parent_mobile": "8531886611",
       "address": "7A/8D, NEW MATHANA GOBALA PURAM,, Tamil Nadu - 621212",
-      "pincode": "621212"
+      "pincode": "621212",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 57,
@@ -683,7 +795,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "GANESAN K",
       "parent_mobile": "Not Available",
       "address": "1/36 NEIVELI VADAPATHI, ORATHANADU, Tamil Nadu - 614628",
-      "pincode": "614628"
+      "pincode": "614628",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 58,
@@ -695,7 +809,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "SINGARAM D",
       "parent_mobile": "9360647645",
       "address": "2/500, SAVADI WEST STREET, KEELAKUNNUPATTI, THURAIYUR, Tamil Nadu - 621002",
-      "pincode": "621002"
+      "pincode": "621002",
+      "religion": "Not Available",
+      "commute_type": "Not Available"
     },
     {
       "s_no": 59,
@@ -705,9 +821,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "9342807701",
       "parent_name": "SENTHILMURUGAN R",
-      "parent_mobile": "9655361201",
+      "parent_mobile": "9342807701",
       "address": "1/1, NORTH ST, PERIYAKAPPANKULAM, VIRUDHACHALAM, Tamil Nadu - 607802",
-      "pincode": "607802"
+      "pincode": "607802",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 60,
@@ -717,9 +835,11 @@ window.DSU_DEPARTMENTS_DATA = {
       "department": "IT",
       "student_mobile": "6383898952",
       "parent_name": "SENTHIL C",
-      "parent_mobile": "9843428796",
+      "parent_mobile": "6383898952",
       "address": "1/27, VADAKU THERU. PERIYAVENMANI, KUNNAM, Tamil Nadu - 621704",
-      "pincode": "621704"
+      "pincode": "621704",
+      "religion": "HINDU",
+      "commute_type": "CB"
     },
     {
       "s_no": 61,
@@ -731,7 +851,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "THIRUNAVUKKARASAN S",
       "parent_mobile": "7550355322",
       "address": "PLOT NO.3, NGGO COLONY NORTH 2ND ST, KARAIKUDI, KALANIVASAL, Tamil Nadu - 630002",
-      "pincode": "630002"
+      "pincode": "630002",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     },
     {
       "s_no": 62,
@@ -743,7 +865,9 @@ window.DSU_DEPARTMENTS_DATA = {
       "parent_name": "RAVI V",
       "parent_mobile": "9789381620",
       "address": "55, KRISHNAPURAM, PARAKKALAKOTTAI,, Tamil Nadu - 614613",
-      "pincode": "614613"
+      "pincode": "614613",
+      "religion": "HINDU",
+      "commute_type": "HOSTEL"
     }
   ]
 };
